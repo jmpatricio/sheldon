@@ -7,6 +7,21 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.css';
+import 'uikit/dist/css/uikit-core.min.css';
+
+
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+
+// loads the Icon plugin
+UIkit.use(Icons);
+
+window.UIkit = UIkit;
+
+// components can be called from the imported UIkit reference
+// UIkit.notification('Hello world.');
+
+
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';

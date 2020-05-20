@@ -1,8 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}
+    {% trans %}Login{% endtrans %}
+{% endblock %}
+
 
 {% block body %}
+
+    <div class="uk-flex uk-flex-center uk-margin-auto-vertical uk-flex-between">
+        <div class="uk-card uk-card-large uk-margin-large-top uk-width-1-1 uk-width-1-2@l">
+            <div class="uk-card-header">
+                <h3 class="uk-card-title">{% trans %}Login{% endtrans %}</h3>
+            </div>
+
+            <div class="uk-card-body">
+
+                {% if error %}
+                    <div class="uk-alert-danger" uk-alert>
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                    </div>
+                {% endif %}
+
+                <form action="{{ path('login') }}" method="post">
+                    <fieldset class="uk-fieldset">
+                        <div class="uk-margin">
+                            <div class="uk-form-label">{% trans %}Email{% endtrans %}</div>
+                            <div class="uk-inline uk-width-1-1">
+                                <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                <input class="uk-input" type="text" name="_username" value="{{ last_username }}" placeholder="user@example.com" />
+                            </div>
+                        </div>
+
+                        <div class="uk-margin">
+                            <div class="uk-form-label">{% trans %}Password{% endtrans %}</div>
+                            <div class="uk-inline uk-width-1-1">
+                                <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                <input class="uk-input" type="password" name="_password" />
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="uk-margin uk-grid">
+                            <div class="uk-inline uk-width-1-1 uk-width-1-2@s">
+                                <input class="uk-checkbox" type="checkbox" name="_remember_me" />
+                                <div class="uk-form-label uk-inline">{% trans %}Remember me{% endtrans %}</div>
+                            </div>
+                            <div class="uk-inline uk-width-1-1 uk-width-1-2@s">
+                                <input type="submit" class="uk-button uk-width-1-1 uk-button-primary" value="{% trans %}Login{% endtrans %}" />
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                </form>
+
+
+
+            </div>
+
+        </div>
+        <div class="uk-visible@l uk-width-1-2 uk-background-contain uk-height-large uk-margin-large-top" style="background-image: url({{ asset('images/undraw_my_password_d6kg.svg') }});"></div>
+    </div>
+
+
+{% endblock %}
+
+{% block body2 %}
+
 
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
