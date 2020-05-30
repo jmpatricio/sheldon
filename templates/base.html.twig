@@ -11,19 +11,41 @@
         <div class="uk-navbar-container uk-active uk-container-expand uk-sticky-fixed">
             <nav class="uk-navbar">
                 <div class="uk-navbar-left">
-                    {% if app.user %}
-                    <a id="sidebar_toggle" class="uk-navbar-toggle" uk-navbar-toggle-icon ></a>
-                    {% endif %}
                     <a href="{{ path('public_home') }}" class="uk-navbar-item uk-logo">
                         {{ app_name }}
                     </a>
+
+
+
+
+                    {% if app.user %}
+                        <ul class="uk-navbar-nav">
+
+                            <li class="uk-active">
+                                <a href="#">Admin &nbsp;<span uk-icon="chevron-down"></span></a>
+                                <div uk-dropdown="pos: bottom-left; mode: click;">
+                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                        <li class="uk-nav-header">Configs</li>
+
+                                        <li><a href="#"><span uk-icon="cog"></span> {% trans %}Settings{% endtrans %}</a></li>
+
+                                        <li class="uk-nav-header">{% trans %}Security{% endtrans %}</li>
+                                        <li>
+
+                                            <a href="#"><span uk-icon="users"></span> {% trans %}Users{% endtrans %}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </div>
 
                 <div class="uk-navbar-right">
                     {% if app.user %}
                         <ul class="uk-navbar-nav">
                             <li class="uk-active">
-                                <a href="#">Èrik &nbsp;<span uk-icon="chevron-down"></span></a>
+                                <a href="#">{{ app.user.firstName }} &nbsp;<span uk-icon="chevron-down"></span></a>
                                 <div uk-dropdown="pos: bottom-right; mode: click; offset: -17;">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
                                         <li class="uk-nav-header">Options</li>
