@@ -1,0 +1,49 @@
+easy_admin:
+  site_name: "Sheldon"
+  design:
+    menu:
+      - label: 'Admin'
+        icon: cog
+        permission: 'ROLE_ADMIN'
+        children:
+          - label: 'Users'
+            icon: users
+            entity: User
+  entities:
+    # List the entity class name you want to manage
+    User:
+      class: App\Entity\User
+      controller: App\Controller\EasyAdmin\UserController
+      form:
+        fields:
+          - type: 'section'
+            label: 'Personal Info'
+            icon: user
+          - property: 'firstName'
+            type:  Symfony\Component\Form\Extension\Core\Type\TextType
+          - property: 'lastName'
+            type:  Symfony\Component\Form\Extension\Core\Type\TextType
+          - property: 'email'
+          - type: 'section'
+            label: 'Security'
+            icon: lock
+          - property: 'plainPassword'
+            type: 'repeated'
+            type_options:
+              type: Symfony\Component\Form\Extension\Core\Type\PasswordType
+              required: false
+              first_options: { label: 'Password' }
+              second_options: { label: 'Password (Again)' }
+              invalid_message: fos_user.password.mismatch
+          - property: 'roles'
+            type: 'choice'
+            type_options:
+              mapped: true
+              expanded: true
+              multiple: true
+              choices: {
+                'Staff': 'ROLE_STAFF',
+                'Regular User': 'ROLE_USER',
+                'Admin': 'ROLE_ADMIN',
+                'Super Admin': 'ROLE_SUPER_ADMIN'
+              }

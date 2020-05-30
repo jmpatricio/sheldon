@@ -27,6 +27,7 @@ class UserFixtures extends Fixture
         $adminUser->setPassword($this->passwordEncoder->encodePassword($adminUser,'admin'));
         $adminUser->setFirstName('John');
         $adminUser->setLastName('Doe');
+        $adminUser->setRoles(['ROLE_ADMIN']);
         $manager->persist($adminUser);
         $manager->flush();
 

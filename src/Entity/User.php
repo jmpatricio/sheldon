@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -43,6 +44,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $last_name;
+
+    private $plainPassword;
 
     public function getId(): ?int
     {
@@ -119,7 +122,7 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+         $this->plainPassword = null;
     }
 
     public function getFirstName(): ?string
@@ -145,4 +148,27 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "{$this->getFirstName()}";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+
 }
